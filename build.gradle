@@ -32,6 +32,7 @@ dependencies {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
 	implementation 'org.thymeleaf.extras:thymeleaf-extras-java8time'
+	implementation 'net.coobird:thumbnailator:0.4.12'
 }
 
 test {

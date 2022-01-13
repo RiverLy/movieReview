@@ -2,6 +2,7 @@ package com.river.movieReview.controller;
 
 import com.river.movieReview.dto.UploadResultDto;
 import lombok.extern.log4j.Log4j2;
+import net.coobird.thumbnailator.Thumbnailator;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -84,9 +85,16 @@ public class UploadController {
             Path savePath = Paths.get(saveName);
 
             try {
+
                 file.transferTo(savePath);
+
+                String thumbmailSaveName = uploadPath + File.separator + folderPath + File.separator + "s_" + uuid + "_" + fileName;
+                File thumbnailFile = new File(thumbmailSaveName);
+                Thumbnailator.createThumbnail(savePath.toFile(), thumbnailFile, 100, 100);
+
                 resultDtoList.add(new UploadResultDto(fileName, uuid, folderPath));
-            } catch (IOException e){
+
+            } catch (IOException e) {
                 log.error(e.getMessage());
                 return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
             }

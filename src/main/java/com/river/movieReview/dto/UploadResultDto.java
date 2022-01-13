@@ -26,4 +26,13 @@ public class UploadResultDto implements Serializable {
         }
     }
 
+    public String getThumbnailUrl(){
+        try {
+            return URLEncoder.encode(folderPath + "/s_" + uuid + "_" + fileName, "UTF-8");
+        } catch (UnsupportedEncodingException e){
+            log.error(e);
+            return "";
+        }
+    }
+
 }
